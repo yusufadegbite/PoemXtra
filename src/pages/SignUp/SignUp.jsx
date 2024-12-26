@@ -2,8 +2,12 @@ import React, { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase";
 import { Link } from "react-router-dom";
+import { FaArrowLeft } from "react-icons/fa"; // Import the arrow icon
 
 const SignUp = () => {
+  const [name, setName] = useState("");
+  const [surname, setSurname] = useState("");
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -13,17 +17,58 @@ const SignUp = () => {
     try {
       await createUserWithEmailAndPassword(auth, email, password);
       alert("Account created successfully!");
+      // You might want to add logic here for redirecting the user after signup
     } catch (err) {
       setError(err.message);
     }
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-md">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+      {/* Back to Home Arrow Icon */}
+      <Link to="/" className="absolute top-6 left-6">
+        <button className="flex items-center px-2 py-1 text-white bg-blue-600 rounded-full hover:bg-blue-700 transition">
+          <FaArrowLeft size={20} /> {/* Arrow icon */}
+        </button>
+      </Link>
+
+      <div className="w-full max-w-md my-[5em] p-6 bg-white rounded-lg shadow-md">
         <h2 className="text-2xl font-bold text-center text-gray-800">Sign Up</h2>
         {error && <p className="text-red-600 text-center mt-2">{error}</p>}
         <form className="mt-4" onSubmit={handleSignup}>
+          <div className="mb-4">
+            <label className="block text-gray-700">Firstname</label>
+            <input
+              type="text"
+              className="w-full px-4 py-2 border rounded-lg focus:ring focus:ring-blue-300"
+              placeholder="Enter your firstname"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700">Lastname</label>
+            <input
+              type="text"
+              className="w-full px-4 py-2 border rounded-lg focus:ring focus:ring-blue-300"
+              placeholder="Enter your surname"
+              value={surname}
+              onChange={(e) => setSurname(e.target.value)}
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700">Username</label>
+            <input
+              type="text"
+              className="w-full px-4 py-2 border rounded-lg focus:ring focus:ring-blue-300"
+              placeholder="Choose a username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            />
+          </div>
           <div className="mb-4">
             <label className="block text-gray-700">Email</label>
             <input
@@ -40,7 +85,7 @@ const SignUp = () => {
             <input
               type="password"
               className="w-full px-4 py-2 border rounded-lg focus:ring focus:ring-blue-300"
-              placeholder="Enter your password"
+              placeholder="Create a password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required

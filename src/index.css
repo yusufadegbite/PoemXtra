@@ -5,8 +5,17 @@
 
 
 .slick-slide {
-  margin: 0 10px; /* Spacing between slides */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  padding: 0 10px;
 }
+
+.slick-list {
+  overflow: hidden; /* Prevent slide overflow */
+}
+
 
 .slick-prev:before,
 .slick-next:before {

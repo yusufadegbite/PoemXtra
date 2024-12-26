@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Homepage from "./pages/Homepage/Homepage";
 import Login from './pages/Login/Login'
 import Signup from "./pages/SignUp/SignUp";
+import PoemDetail from "./pages/PoemDetail/PoemDetail";
 
 
 const App = () => {
@@ -36,6 +37,7 @@ const App = () => {
       <div style={{ backgroundColor: "#F5F5DC", minHeight: "100vh" }}>
         <Routes>
         <Route exact path="/" element={<Homepage />} />
+        <Route path="/poem/:title" element={<PoemDetail />} />
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/signup" element={<Signup />} />
         </Routes>

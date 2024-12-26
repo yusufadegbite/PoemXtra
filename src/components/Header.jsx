@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { FaBars, FaTimes } from "react-icons/fa"; // Import the icons
 import logo from "../assets/image.png";
-
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -26,11 +26,10 @@ const Header = () => {
       {/* Logo */}
       <div className="flex items-center space-x-2">
         <img
-          src={logo} // Replace with the actual path to the uploaded image
-          alt="PoemExtra Logo"
-          className="h-10 w-10 object-contain"
+          src={logo}
+          alt="PoemXtra Logo"
+          className="h-12 w-auto object-contain"
         />
-        <h1 className="text-3xl font-bold">PoemExtra</h1>
       </div>
 
       {/* Hamburger Icon */}
@@ -39,7 +38,7 @@ const Header = () => {
         className="text-blue-800 text-3xl md:hidden focus:outline-none"
         aria-label="Toggle menu"
       >
-        ☰
+        <FaBars /> {/* Hamburger icon */}
       </button>
 
       {/* Sliding Menu */}
@@ -53,7 +52,7 @@ const Header = () => {
           className="text-blue-800 text-3xl absolute top-4 right-4 focus:outline-none"
           aria-label="Close menu"
         >
-          ✖
+          <FaTimes /> {/* Close icon */}
         </button>
         <nav className="flex flex-col items-center justify-center h-full space-y-8 text-lg">
           <button
