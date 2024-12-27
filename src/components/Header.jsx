@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { FaBars, FaTimes } from "react-icons/fa"; // Import the icons
-import logo from "../assets/image.png";
+import logo from "../assets/image.png"; // Path to the uploaded logo
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -25,11 +25,13 @@ const Header = () => {
     <header className="text-black py-4 px-6 shadow-md flex justify-between items-center">
       {/* Logo */}
       <div className="flex items-center space-x-2">
-        <img
-          src={logo}
-          alt="PoemXtra Logo"
-          className="h-12 w-auto object-contain"
-        />
+        <Link to="/"> {/* Make the logo clickable and navigate to homepage */}
+          <img
+            src={logo}
+            alt="PoemXtra Logo"
+            className="h-12 w-auto object-contain"
+          />
+        </Link>
       </div>
 
       {/* Hamburger Icon */}

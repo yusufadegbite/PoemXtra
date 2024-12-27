@@ -34,14 +34,22 @@ const PoemDetail = () => {
   return (
     <section style={{ backgroundColor: "#fefefe" }}>
       <Header />
-      <div className="py-16 px-6 max-w-4xl mx-auto my-auto" style={{ backgroundColor: "#fefefe" }}>
-        <h3 className="text-4xl font-bold mb-4">{poem.title}</h3>
+      <div
+        className="py-16 px-6 max-w-4xl mx-auto my-6"
+        style={{ backgroundColor: "#fefefe" }}
+      >
+        {/* Use the title from useParams as a fallback */}
+        <h1 className="text-5xl font-bold mb-6">{title || poem.title}</h1>
         <p className="italic mb-6 text-gray-600">by {poem.author}</p>
 
         {/* Render the single image associated with the poem */}
         {poem.image && (
           <div className="mb-6">
-            <img src={poem.image} alt={`Illustration for ${poem.title}`} className="w-full h-[700px] mb-4 rounded" />
+            <img
+              src={poem.image}
+              alt={`Illustration for ${poem.title}`}
+              className="w-full h-[700px] mb-4 rounded"
+            />
           </div>
         )}
 
