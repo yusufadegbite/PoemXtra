@@ -3,8 +3,11 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Homepage from "./pages/Homepage/Homepage";
 import Login from './pages/Login/Login'
 import Signup from "./pages/SignUp/SignUp";
+import Dashboard from "./pages/Dashboard/Dashboard";
 import PoemDetail from "./pages/PoemDetail/PoemDetail";
-
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { Helmet } from "react-helmet";
 
 const App = () => {
   const [showButton, setShowButton] = useState(false);
@@ -35,11 +38,16 @@ const App = () => {
   return (
     <Router>
       <div style={{ backgroundColor: "#F5F5DC", minHeight: "100vh" }}>
+      <Helmet>
+        <script async src="https://go.ezoic.net/ezoic/ezoic.js"></script>
+      </Helmet>
+        <ToastContainer position="top-right" autoClose={3000} />
         <Routes>
         <Route exact path="/" element={<Homepage />} />
         <Route path="/poem/:title" element={<PoemDetail />} />
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/signup" element={<Signup />} />
+          <Route exact path="/dashboard" element={<Dashboard />} />
         </Routes>
 
         {/* Back to Top Button */}

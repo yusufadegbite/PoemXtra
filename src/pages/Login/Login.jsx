@@ -1,30 +1,36 @@
 import React, { useState } from "react";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { auth, googleProvider } from "../../firebase";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa"; // Import the arrow icon
+import { toast } from "react-toastify";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      alert("Login successful!");
+      toast.success("Login successful!");
+      navigate("/dashboard");
     } catch (err) {
       setError(err.message);
+      toast.error(err.message);
     }
   };
 
   const handleGoogleLogin = async () => {
     try {
       await signInWithPopup(auth, googleProvider);
-      alert("Login successful!");
+      toast.success("Login successful!");
+      navigate("/dashboard");
     } catch (err) {
       setError(err.message);
+      toast.error(err.message);
     }
   };
 

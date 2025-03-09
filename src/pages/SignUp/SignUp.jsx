@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../firebase";
-import { Link } from "react-router-dom";
-import { FaArrowLeft } from "react-icons/fa"; // Import the arrow icon
+import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import { auth, googleProvider } from "../../firebase";
+import { Link, useNavigate } from "react-router-dom";
+import { FaArrowLeft } from "react-icons/fa";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const SignUp = () => {
   const [name, setName] = useState("");
@@ -11,24 +13,36 @@ const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const handleSignup = async (e) => {
     e.preventDefault();
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      alert("Account created successfully!");
-      // You might want to add logic here for redirecting the user after signup
+      toast.success("Account created successfully! Please log in.");
+      navigate("/login"); // Redirect to login page first
     } catch (err) {
       setError(err.message);
+      toast.error(err.message);
+    }
+  };
+
+  const handleGoogleSignup = async () => {
+    try {
+      await signInWithPopup(auth, googleProvider);
+      toast.success("Signed up successfully with Google! Please log in.");
+      navigate("/login"); // Redirect to login page first
+    } catch (err) {
+      setError(err.message);
+      toast.error(err.message);
     }
   };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      {/* Back to Home Arrow Icon */}
       <Link to="/" className="absolute top-6 left-6">
         <button className="flex items-center px-2 py-1 text-white bg-blue-600 rounded-full hover:bg-blue-700 transition">
-          <FaArrowLeft size={20} /> {/* Arrow icon */}
+          <FaArrowLeft size={20} />
         </button>
       </Link>
 
@@ -98,6 +112,14 @@ const SignUp = () => {
             Sign Up
           </button>
         </form>
+
+        <button
+          onClick={handleGoogleSignup}
+          className="w-full mt-4 py-2 text-white bg-red-600 rounded-lg hover:bg-red-700 transition"
+        >
+          Sign Up with Google
+        </button>
+
         <p className="mt-4 text-center text-gray-600">
           Already have an account?{" "}
           <Link to="/login" className="text-blue-600 hover:underline">
